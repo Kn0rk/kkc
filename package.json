@@ -33,40 +33,8 @@
         "title": "modeToggle"
       },
       {
-        "command": "kkc.selectActionReset",
-        "title": "..."
-      },
-      {
-        "command": "kkc.selectAction",
-        "title": "..."
-      },
-      {
-        "command": "kkc.selectActionResetAction",
-        "title": "..."
-      },
-      {
-        "command": "kkc.modAllSelections",
-        "title": "..."
-      },
-      {
-        "command": "kkc.makeTempSelectionActive",
-        "title": "..."
-      },
-      {
-        "command": "kkc.setShiftHat",
-        "title": "..."
-      },
-      {
-        "command": "kkc.clearSelection",
-        "title": "..."
-      },
-      {
-        "command": "kkc.setUserMode",
-        "title": "..."
-      },
-      {
-        "command": "kkc.setHat",
-        "title": "..."
+        "command": "kkc.helloWorld",
+        "title": "Hello World"
       }
     ]
   },
