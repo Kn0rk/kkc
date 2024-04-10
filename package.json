@@ -21,8 +21,52 @@
   "contributes": {
     "commands": [
       {
-        "command": "kkc.helloWorld",
-        "title": "Hello World"
+        "command": "kkc.modeOn",
+        "title": "modeOn"
+      },
+      {
+        "command": "kkc.modeOff",
+        "title": "modeOff"
+      },
+      {
+        "command": "kkc.modeToggle",
+        "title": "modeToggle"
+      },
+      {
+        "command": "kkc.selectActionReset",
+        "title": "..."
+      },
+      {
+        "command": "kkc.selectAction",
+        "title": "..."
+      },
+      {
+        "command": "kkc.selectActionResetAction",
+        "title": "..."
+      },
+      {
+        "command": "kkc.modAllSelections",
+        "title": "..."
+      },
+      {
+        "command": "kkc.makeTempSelectionActive",
+        "title": "..."
+      },
+      {
+        "command": "kkc.setShiftHat",
+        "title": "..."
+      },
+      {
+        "command": "kkc.clearSelection",
+        "title": "..."
+      },
+      {
+        "command": "kkc.setUserMode",
+        "title": "..."
+      },
+      {
+        "command": "kkc.setHat",
+        "title": "..."
       }
     ]
   },
@@ -35,6 +79,7 @@
     "test": "vscode-test"
   },
   "devDependencies": {
+    "@types/heap": "^0.2.34",
     "@types/vscode": "^1.88.0",
     "@types/mocha": "^10.0.6",
     "@types/node": "18.x",
@@ -44,5 +89,8 @@
     "typescript": "^5.3.3",
     "@vscode/test-cli": "^0.0.4",
     "@vscode/test-electron": "^2.3.8"
+  },
+  "dependencies": {
+    "heap": "^0.2.7"
   }
 }
