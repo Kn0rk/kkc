@@ -56,10 +56,6 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	const targetMarkInstance = new TargetMark(keyboardHandler);
 	keyboardHandler.init();
-	disposable = vscode.commands.registerCommand('kkc.helloWorld', async () => {
-		vscode.window.showInformationMessage('Hello World from kkc!');		
-	});
-	context.subscriptions.push(disposable);
 
 	disposable = vscode.commands.registerCommand('kkc.setHat', targetMarkInstance.setHat);
 	context.subscriptions.push(disposable);
@@ -100,24 +96,24 @@ export function activate(context: vscode.ExtensionContext) {
 	// context.subscriptions.push(disposable);
 
 	
-	// // when cursor moves, clear the targets
-	// decoration(context);
-	// vscode.window.onDidChangeTextEditorSelection(() => {
-	// 	decoration(context);
-	// });
-	// let activeEditor = vscode.window.activeTextEditor;
-	// vscode.window.onDidChangeActiveTextEditor(editor => {
-	// 	activeEditor = editor;
-	// 	if (editor) {
-	// 		decoration(context);
-	// 	}
-	// }, null, context.subscriptions);
+	// when cursor moves, clear the targets
+	decoration(context);
+	vscode.window.onDidChangeTextEditorSelection(() => {
+		decoration(context);
+	});
+	let activeEditor = vscode.window.activeTextEditor;
+	vscode.window.onDidChangeActiveTextEditor(editor => {
+		activeEditor = editor;
+		if (editor) {
+			decoration(context);
+		}
+	}, null, context.subscriptions);
 
-	// vscode.workspace.onDidChangeTextDocument(event => {
-	// 	if (activeEditor && event.document === activeEditor.document) {
-	// 		decoration(context);
-	// 	}
-	// }, null, context.subscriptions);
+	vscode.workspace.onDidChangeTextDocument(event => {
+		if (activeEditor && event.document === activeEditor.document) {
+			decoration(context);
+		}
+	}, null, context.subscriptions);
 	
 }
 
