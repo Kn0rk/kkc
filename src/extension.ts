@@ -4,12 +4,12 @@ import * as vscode from 'vscode';
 import KeyboardHandler from './utils/KeyboardHandler';
 import { StatusBarItem } from './utils/StatusBarItem';
 import { TargetMark } from './commands/setTarget';
-import { decoration } from './hats/textHatDecoration';
 import { setCursorStyle } from "./utils/highlightSelection";
-import { modAll } from './cursorModifier/basic';
 import { clearSelection, makeTempSelectionActive } from './handler';
-import { selectAction, selectActionReset, selectActionResetAction } from './commands/actions';
-import { setUserMode } from './commands/userWhenClause';
+// import { modAll } from './cursorModifier/basic';
+// import { decoration } from './hats/textHatDecoration';
+// import { selectAction, selectActionReset, selectActionResetAction } from './commands/actions';
+// import { setUserMode } from './commands/userWhenClause';
 
 
 var g_mode = false;
@@ -34,7 +34,7 @@ export function getKeyboardHandler():KeyboardHandler|null{
 
 export function activate(context: vscode.ExtensionContext) {
 	
-	const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
+	const statusBarItem = StatusBarItem.create("kkc.showQuickPick");
 	keyboardHandler = new KeyboardHandler(context, statusBarItem);
 	
 	const targetMarkInstance = new TargetMark(keyboardHandler);
@@ -44,11 +44,11 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 	context.subscriptions.push(disposable);
 
-	disposable = vscode.commands.registerCommand('kkc.setHat', targetMarkInstance.setHat);
-	context.subscriptions.push(disposable);
+	// disposable = vscode.commands.registerCommand('kkc.setHat', targetMarkInstance.setHat);
+	// context.subscriptions.push(disposable);
 
-	disposable = vscode.commands.registerCommand('kkc.setShiftHat', targetMarkInstance.setShiftHat);
-	context.subscriptions.push(disposable);
+	// disposable = vscode.commands.registerCommand('kkc.setShiftHat', targetMarkInstance.setShiftHat);
+	// context.subscriptions.push(disposable);
 
 	disposable = vscode.commands.registerCommand('kkc.modeOn', () => { setMode( true); });
 	context.subscriptions.push(disposable);
@@ -61,46 +61,46 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 	context.subscriptions.push(disposable);
 
-	disposable = vscode.commands.registerCommand('kkc.selectActionReset', selectActionReset);
-	context.subscriptions.push(disposable);
+	// disposable = vscode.commands.registerCommand('kkc.selectActionReset', selectActionReset);
+	// context.subscriptions.push(disposable);
 
-	disposable = vscode.commands.registerCommand('kkc.selectAction', selectAction);
-	context.subscriptions.push(disposable);
+	// disposable = vscode.commands.registerCommand('kkc.selectAction', selectAction);
+	// context.subscriptions.push(disposable);
 
-	disposable = vscode.commands.registerCommand('kkc.selectActionResetAction', selectActionResetAction);
-	context.subscriptions.push(disposable);
+	// disposable = vscode.commands.registerCommand('kkc.selectActionResetAction', selectActionResetAction);
+	// context.subscriptions.push(disposable);
 
-	disposable = vscode.commands.registerCommand('kkc.modAllSelections', modAll);
-	context.subscriptions.push(disposable);
+	// disposable = vscode.commands.registerCommand('kkc.modAllSelections', modAll);
+	// context.subscriptions.push(disposable);
 
-	disposable = vscode.commands.registerCommand('kkc.makeTempSelectionActive', makeTempSelectionActive);
-	context.subscriptions.push(disposable);
+	// disposable = vscode.commands.registerCommand('kkc.makeTempSelectionActive', makeTempSelectionActive);
+	// context.subscriptions.push(disposable);
 			
-	disposable = vscode.commands.registerCommand('kkc.setUserMode', setUserMode);
-	context.subscriptions.push(disposable);
+	// disposable = vscode.commands.registerCommand('kkc.setUserMode', setUserMode);
+	// context.subscriptions.push(disposable);
 
-	disposable = vscode.commands.registerCommand('kkc.clearSelection', clearSelection);
-	context.subscriptions.push(disposable);
+	// disposable = vscode.commands.registerCommand('kkc.clearSelection', clearSelection);
+	// context.subscriptions.push(disposable);
 
 	
-	// when cursor moves, clear the targets
-	decoration(context);
-	vscode.window.onDidChangeTextEditorSelection(() => {
-		decoration(context);
-	});
-	let activeEditor = vscode.window.activeTextEditor;
-	vscode.window.onDidChangeActiveTextEditor(editor => {
-		activeEditor = editor;
-		if (editor) {
-			decoration(context);
-		}
-	}, null, context.subscriptions);
+	// // when cursor moves, clear the targets
+	// decoration(context);
+	// vscode.window.onDidChangeTextEditorSelection(() => {
+	// 	decoration(context);
+	// });
+	// let activeEditor = vscode.window.activeTextEditor;
+	// vscode.window.onDidChangeActiveTextEditor(editor => {
+	// 	activeEditor = editor;
+	// 	if (editor) {
+	// 		decoration(context);
+	// 	}
+	// }, null, context.subscriptions);
 
-	vscode.workspace.onDidChangeTextDocument(event => {
-		if (activeEditor && event.document === activeEditor.document) {
-			decoration(context);
-		}
-	}, null, context.subscriptions);
+	// vscode.workspace.onDidChangeTextDocument(event => {
+	// 	if (activeEditor && event.document === activeEditor.document) {
+	// 		decoration(context);
+	// 	}
+	// }, null, context.subscriptions);
 	
 }
 
