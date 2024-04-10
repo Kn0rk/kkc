@@ -10,7 +10,7 @@ class TmpSelectionContext {
 
         
 
-        const tempCursor = getSecondaryCursor();
+        const tempCursor = getSecondaryCursor(true);
         const tempSelection = getSelection();
         if (tempCursor === null || tempSelection === null) {
             this.isSet = false;
@@ -23,7 +23,7 @@ class TmpSelectionContext {
     }
 
     reset() {
-        const cursor = getSecondaryCursor();
+        const cursor = getSecondaryCursor(true);
         if (this.old_selection && cursor) {
             cursor.editor.selection = this.old_selection;
         }

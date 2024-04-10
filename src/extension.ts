@@ -2,14 +2,14 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import KeyboardHandler from './utils/KeyboardHandler';
-// import { StatusBarItem } from './utils/StatusBarItem';
-// import { TargetMark } from './commands/setTarget';
+import { StatusBarItem } from './utils/StatusBarItem';
+import { TargetMark } from './commands/setTarget';
 import { setCursorStyle } from "./utils/highlightSelection";
-import { clearSelection, makeTempSelectionActive } from './handler';
-// import { modAll } from './cursorModifier/basic';
-// import { decoration } from './hats/textHatDecoration';
-// import { selectAction, selectActionReset, selectActionResetAction } from './commands/actions';
-// import { setUserMode } from './commands/userWhenClause';
+import { clearSelection, makeSecondarySelectionActive } from './handler';
+import { modAll } from './cursorModifier/basic';
+import { decoration } from './hats/textHatDecoration';
+import { selectAction, selectActionReset, selectActionResetAction } from './commands/actions';
+import { setUserMode } from './commands/userWhenClause';
 
 
 var g_mode = false;
@@ -23,7 +23,7 @@ export function setMode(mode: boolean) {
 	else{
 		setCursorStyle(vscode.TextEditorCursorStyle.Line);
 	}
-	makeTempSelectionActive();
+	makeSecondarySelectionActive();
 	clearSelection(true);
 
 }
@@ -51,21 +51,21 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposable);
 
 
-	// const statusBarItem = StatusBarItem.create("kkc.showQuickPick");
-	// keyboardHandler = new KeyboardHandler(context, statusBarItem);
+	const statusBarItem = StatusBarItem.create("kkc.showQuickPick");
+	keyboardHandler = new KeyboardHandler(context, statusBarItem);
 	
-	// const targetMarkInstance = new TargetMark(keyboardHandler);
-	// keyboardHandler.init();
-	// let disposable = vscode.commands.registerCommand('kkc.helloWorld', async () => {
-	// 	vscode.window.showInformationMessage('Hello World from kkc!');		
-	// });
-	// context.subscriptions.push(disposable);
+	const targetMarkInstance = new TargetMark(keyboardHandler);
+	keyboardHandler.init();
+	disposable = vscode.commands.registerCommand('kkc.helloWorld', async () => {
+		vscode.window.showInformationMessage('Hello World from kkc!');		
+	});
+	context.subscriptions.push(disposable);
 
-	// disposable = vscode.commands.registerCommand('kkc.setHat', targetMarkInstance.setHat);
-	// context.subscriptions.push(disposable);
+	disposable = vscode.commands.registerCommand('kkc.setHat', targetMarkInstance.setHat);
+	context.subscriptions.push(disposable);
 
-	// disposable = vscode.commands.registerCommand('kkc.setShiftHat', targetMarkInstance.setShiftHat);
-	// context.subscriptions.push(disposable);
+	disposable = vscode.commands.registerCommand('kkc.setShiftHat', targetMarkInstance.setShiftHat);
+	context.subscriptions.push(disposable);
 
 	disposable = vscode.commands.registerCommand('kkc.modeOn', () => { setMode( true); });
 	context.subscriptions.push(disposable);

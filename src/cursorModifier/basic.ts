@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { getSecondaryCursor,  setSecondaryCursor } from '../handler';
+import { getSecondaryCursor, setSecondaryCursor } from '../handler';
 import { TempCursor } from '../utils/structs';
 import { byChar, insideAny, insideAnyWrap } from './inside';
 
@@ -76,7 +76,7 @@ function byToken(
 ) {
 
 
-    let cursor = getSecondaryCursor();
+    let cursor = getSecondaryCursor(true);
     if(cursor === null){
         return;
     }
@@ -127,7 +127,7 @@ function byToken(
 }
 
 function home(shift:"shift" | "replace"="replace") {
-    let cursor = getSecondaryCursor();
+    let cursor = getSecondaryCursor(true);
     if(cursor === null){
         return;
     }
@@ -146,7 +146,7 @@ function home(shift:"shift" | "replace"="replace") {
 }
 
 function end(shift:"shift" | "replace"="replace") {
-    let cursor = getSecondaryCursor();
+    let cursor = getSecondaryCursor(true);
     if(cursor === null){
         return;
     }
@@ -161,7 +161,7 @@ function end(shift:"shift" | "replace"="replace") {
 }
 
 function verticalMove(dir: "up" | "down",shift:"shift" | "replace"="replace") {
-    let cursor = getSecondaryCursor();
+    let cursor = getSecondaryCursor(true);
     if(cursor === null){
         return;
     }

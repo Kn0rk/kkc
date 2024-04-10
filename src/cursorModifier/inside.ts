@@ -7,7 +7,7 @@ import { getPreviousChar } from '../utils/iterateDocument';
 
 
 export function byChar(dir: "next" | "prev", shift: "shift" | "replace" ="replace") {
-    let cursor = getSecondaryCursor();
+    let cursor = getSecondaryCursor(true);
     if (cursor === null) {
         return;
     }
@@ -96,7 +96,7 @@ export function insideAny(cursor: vscode.Position, document: vscode.TextDocument
 }
 
 export function insideAnyWrap() {
-    let cursor = getSecondaryCursor();
+    let cursor = getSecondaryCursor(true);
     if (cursor === null) {
         return;
     }

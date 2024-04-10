@@ -76,7 +76,7 @@ function extendRangeByCursor(
     }
 }
 
-export function makeTempSelectionActive() {
+export function makeSecondarySelectionActive() {
 
     if (secondaryCursor && secondarySelection) {
         secondaryCursor.editor.selection = secondarySelection;
@@ -88,11 +88,11 @@ export function makeTempSelectionActive() {
     secondarySelection=null;
 }
 
-export function getSecondaryCursor(): SecondaryCursor | null {
+export function getSecondaryCursor(fallback:boolean=false): SecondaryCursor | null {
     if (secondaryCursor) {
         return secondaryCursor;
     }
-    else {
+    else if (fallback) {
         let editor = vscode.window.activeTextEditor;
         if (editor) {
             return new SecondaryCursor(editor.selection.active, editor);
@@ -106,7 +106,7 @@ export function getSelection(): vscode.Selection |null{
         return secondarySelection;
     }
 
-    const secCur = getSecondaryCursor();
+    const secCur = getSecondaryCursor(true);
     if (secCur){
         const lineText = secCur.editor.document.lineAt(secCur.pos.line).text;
         let i = secCur.pos.character;
