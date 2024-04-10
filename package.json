@@ -21,47 +21,23 @@
   "contributes": {
     "commands": [
       {
-        "command": "kckc.modeOn",
+        "command": "kkc.modeOn",
         "title": "modeOn"
       },
       {
-        "command": "kckc.modeOff",
+        "command": "kkc.modeOff",
         "title": "modeOff"
       },
       {
-        "command": "kckc.modeToggle",
+        "command": "kkc.modeToggle",
         "title": "modeToggle"
       },
       {
-        "command": "kckc.selectActionReset",
-        "title": "..."
-      },
-      {
-        "command": "kckc.selectAction",
-        "title": "..."
-      },
-      {
-        "command": "kckc.selectActionResetAction",
-        "title": "..."
-      },
-      {
-        "command": "kckc.modAllSelections",
-        "title": "..."
-      },
-      {
-        "command": "kckc.makeTempSelectionActive",
-        "title": "..."
+        "command": "kkc.helloWorld",
+        "title": "Hello World"
       },
       {
         "command": "kckc.setShiftHat",
-        "title": "..."
-      },
-      {
-        "command": "kckc.clearSelection",
-        "title": "..."
-      },
-      {
-        "command": "kckc.setUserMode",
         "title": "..."
       },
       {
