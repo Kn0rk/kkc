@@ -4,7 +4,7 @@
   "publisher": "Knork",
   "icon": "images/avatar.png",
   "description": "",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "engines": {
     "vscode": "^1.88.0"
   },
@@ -21,53 +21,53 @@
   "contributes": {
     "commands": [
       {
-				"command": "kckc.modeOn",
-				"title": "modeOn"
-			},
-			{
-				"command": "kckc.modeOff",
-				"title": "modeOff"
-			},
-			{
-				"command": "kckc.modeToggle",
-				"title": "modeToggle"
-			},
-			{
-				"command": "kckc.selectActionReset",
-				"title": "..."
-			},
-			{
-				"command": "kckc.selectAction",
-				"title": "..."
-			},
-			{
-				"command": "kckc.selectActionResetAction",
-				"title": "..."
-			},
-			{
-				"command": "kckc.modAllSelections",
-				"title": "..."
-			},
-			{
-				"command": "kckc.makeTempSelectionActive",
-				"title": "..."
-			},
-			{
-				"command": "kckc.setShiftHat",
-				"title": "..."
-			},
-			{
-				"command": "kckc.clearSelection",
-				"title": "..."
-			},
-			{
-				"command": "kckc.setUserMode",
-				"title": "..."
-			},
-			{
-				"command": "kckc.setHat",
-				"title": "..."
-			}
+        "command": "kckc.modeOn",
+        "title": "modeOn"
+      },
+      {
+        "command": "kckc.modeOff",
+        "title": "modeOff"
+      },
+      {
+        "command": "kckc.modeToggle",
+        "title": "modeToggle"
+      },
+      {
+        "command": "kckc.selectActionReset",
+        "title": "..."
+      },
+      {
+        "command": "kckc.selectAction",
+        "title": "..."
+      },
+      {
+        "command": "kckc.selectActionResetAction",
+        "title": "..."
+      },
+      {
+        "command": "kckc.modAllSelections",
+        "title": "..."
+      },
+      {
+        "command": "kckc.makeTempSelectionActive",
+        "title": "..."
+      },
+      {
+        "command": "kckc.setShiftHat",
+        "title": "..."
+      },
+      {
+        "command": "kckc.clearSelection",
+        "title": "..."
+      },
+      {
+        "command": "kckc.setUserMode",
+        "title": "..."
+      },
+      {
+        "command": "kckc.setHat",
+        "title": "..."
+      }
     ]
   },
   "scripts": {
