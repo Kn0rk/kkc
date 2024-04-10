@@ -1,6 +1,7 @@
 {
   "name": "kkc",
   "displayName": "Knorks Keyboard Config",
+  "publisher": "Knork",
   "description": "",
   "version": "0.0.3",
   "engines": {
