@@ -43,6 +43,10 @@
       {
         "command": "kckc.setHat",
         "title": "..."
+      },
+      {
+        "command": "kckc.modAllSelections",
+        "title": "..."
       }
     ]
   },
