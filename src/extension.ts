@@ -67,16 +67,16 @@ export function activate(context: vscode.ExtensionContext) {
 	// disposable = vscode.commands.registerCommand('kkc.setShiftHat', targetMarkInstance.setShiftHat);
 	// context.subscriptions.push(disposable);
 
-	// disposable = vscode.commands.registerCommand('kkc.modeOn', () => { setMode( true); });
-	// context.subscriptions.push(disposable);
+	disposable = vscode.commands.registerCommand('kkc.modeOn', () => { setMode( true); });
+	context.subscriptions.push(disposable);
 
-	// disposable = vscode.commands.registerCommand('kkc.modeOff', () => { setMode(false); });
-	// context.subscriptions.push(disposable);
+	disposable = vscode.commands.registerCommand('kkc.modeOff', () => { setMode(false); });
+	context.subscriptions.push(disposable);
 
-	// disposable = vscode.commands.registerCommand('kkc.modeToggle', () => {
-	// 	setMode(!g_mode);
-	// });
-	// context.subscriptions.push(disposable);
+	disposable = vscode.commands.registerCommand('kkc.modeToggle', () => {
+		setMode(!g_mode);
+	});
+	context.subscriptions.push(disposable);
 
 	// disposable = vscode.commands.registerCommand('kkc.selectActionReset', selectActionReset);
 	// context.subscriptions.push(disposable);
