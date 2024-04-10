@@ -4,7 +4,7 @@
   "publisher": "Knork",
   "icon": "images/avatar.png",
   "description": "",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "engines": {
     "vscode": "^1.88.0"
   },
@@ -40,7 +40,7 @@
         "command": "kckc.setShiftHat",
         "title": "..."
       },
-       {
+      {
         "command": "kckc.setHat",
         "title": "..."
       }
