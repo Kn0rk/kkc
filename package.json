@@ -21,29 +21,53 @@
   "contributes": {
     "commands": [
       {
-        "command": "kkc.modeOn",
-        "title": "modeOn"
-      },
-      {
-        "command": "kkc.modeOff",
-        "title": "modeOff"
-      },
-      {
-        "command": "kkc.modeToggle",
-        "title": "modeToggle"
-      },
-      {
-        "command": "kkc.helloWorld",
-        "title": "Hello World"
-      },
-      {
-        "command": "kckc.setShiftHat",
-        "title": "..."
-      },
-      {
-        "command": "kckc.setHat",
-        "title": "..."
-      }
+				"command": "kckc.modeOn",
+				"title": "modeOn"
+			},
+			{
+				"command": "kckc.modeOff",
+				"title": "modeOff"
+			},
+			{
+				"command": "kckc.modeToggle",
+				"title": "modeToggle"
+			},
+			{
+				"command": "kckc.selectActionReset",
+				"title": "..."
+			},
+			{
+				"command": "kckc.selectAction",
+				"title": "..."
+			},
+			{
+				"command": "kckc.selectActionResetAction",
+				"title": "..."
+			},
+			{
+				"command": "kckc.modAllSelections",
+				"title": "..."
+			},
+			{
+				"command": "kckc.makeTempSelectionActive",
+				"title": "..."
+			},
+			{
+				"command": "kckc.setShiftHat",
+				"title": "..."
+			},
+			{
+				"command": "kckc.clearSelection",
+				"title": "..."
+			},
+			{
+				"command": "kckc.setUserMode",
+				"title": "..."
+			},
+			{
+				"command": "kckc.setHat",
+				"title": "..."
+			}
     ]
   },
   "scripts": {

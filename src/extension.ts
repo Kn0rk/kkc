@@ -74,26 +74,26 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 	context.subscriptions.push(disposable);
 
-	// disposable = vscode.commands.registerCommand('kkc.selectActionReset', selectActionReset);
-	// context.subscriptions.push(disposable);
+	disposable = vscode.commands.registerCommand('kkc.selectActionReset', selectActionReset);
+	context.subscriptions.push(disposable);
 
-	// disposable = vscode.commands.registerCommand('kkc.selectAction', selectAction);
-	// context.subscriptions.push(disposable);
+	disposable = vscode.commands.registerCommand('kkc.selectAction', selectAction);
+	context.subscriptions.push(disposable);
 
-	// disposable = vscode.commands.registerCommand('kkc.selectActionResetAction', selectActionResetAction);
-	// context.subscriptions.push(disposable);
+	disposable = vscode.commands.registerCommand('kkc.selectActionResetAction', selectActionResetAction);
+	context.subscriptions.push(disposable);
 
-	// disposable = vscode.commands.registerCommand('kkc.modAllSelections', modAll);
-	// context.subscriptions.push(disposable);
+	disposable = vscode.commands.registerCommand('kkc.modAllSelections', modAll);
+	context.subscriptions.push(disposable);
 
-	// disposable = vscode.commands.registerCommand('kkc.makeTempSelectionActive', makeTempSelectionActive);
-	// context.subscriptions.push(disposable);
+	disposable = vscode.commands.registerCommand('kkc.makeTempSelectionActive', makeSecondarySelectionActive);
+	context.subscriptions.push(disposable);
 			
-	// disposable = vscode.commands.registerCommand('kkc.setUserMode', setUserMode);
-	// context.subscriptions.push(disposable);
+	disposable = vscode.commands.registerCommand('kkc.setUserMode', setUserMode);
+	context.subscriptions.push(disposable);
 
-	// disposable = vscode.commands.registerCommand('kkc.clearSelection', clearSelection);
-	// context.subscriptions.push(disposable);
+	disposable = vscode.commands.registerCommand('kkc.clearSelection', clearSelection);
+	context.subscriptions.push(disposable);
 
 	
 	// when cursor moves, clear the targets
