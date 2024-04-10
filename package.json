@@ -2,6 +2,7 @@
   "name": "kkc",
   "displayName": "Knorks Keyboard Config",
   "publisher": "Knork",
+  "icon": "images/avatar.png",
   "description": "",
   "version": "0.0.4",
   "engines": {
@@ -9,6 +10,11 @@
   },
   "categories": [
     "Other"
+  ],
+  "resources": [
+    {
+      "pattern": "images/**"
+    }
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
