@@ -3,6 +3,7 @@ import { index, Tableau, TableauModel } from "./tableau.js";
 import { simplex } from "./simplex.js";
 import Heap from "heap";
 
+
 type Buffer = {
   readonly matrix: Float64Array
   readonly positionOfVariable: Int32Array
