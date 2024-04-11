@@ -128,7 +128,7 @@ export function getSecondarySelection(fallback:boolean=true): vscode.Selection |
         return secondarySelection;
     }
 
-    const secCur = getSecondaryCursor(true);
+    const secCur = getSecondaryCursor(false);
     if (secCur){
         const lineText = secCur.editor.document.lineAt(secCur.pos.line).text;
         let i = secCur.pos.character;
