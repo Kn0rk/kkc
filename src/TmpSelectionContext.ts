@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 class TmpSelectionContext {
 
     private old_selection;
+    private selBeforeAction;
     public isSet;
     constructor() {
         this.isSet = true;
@@ -29,13 +30,30 @@ class TmpSelectionContext {
             this.old_selection = tempCursor.editor.selection;
             tempCursor.editor.selection = sel;
         }
-
+        this.selBeforeAction = sel;
     }
 
-    reset() {
+    reset(lineDelta:number=0,characterDelta:number=0) {
+
+
+
         const cursor = getSecondaryCursor(true);
         if (this.old_selection && cursor) {
-            cursor.editor.selection = this.old_selection;
+            const shiftedPos = new vscode.Position(
+                this.old_selection.start.line-lineDelta,
+                this.old_selection.start.character-characterDelta
+            );
+
+            let end = this.old_selection.end;
+            if (this.old_selection.start.line === this.old_selection.end.line && this.old_selection.start.character === this.old_selection.end.character ){
+                end = shiftedPos;
+            }
+            cursor.editor.selection = new vscode.Selection(
+                shiftedPos,
+                end
+            );
+            
+            this.old_selection;
         }
     }
 }
