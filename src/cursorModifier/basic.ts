@@ -122,7 +122,7 @@ function byToken(
     }
 
     
-    setSecondaryCursor(new TempCursor(newRange.start,editor),shift);
+    setSecondaryCursor(new TempCursor(newRange.start,editor),shift,false);
     
 }
 
@@ -155,7 +155,7 @@ function end(shift:"shift" | "replace"="replace") {
     
     let line = cursorPos.line;
     let end = editor.document.lineAt(line).range.end;
-    setSecondaryCursor(new TempCursor(end,editor),shift);
+    setSecondaryCursor(new TempCursor(end,editor),shift,false);
 
 
 }
@@ -173,5 +173,5 @@ function verticalMove(dir: "up" | "down",shift:"shift" | "replace"="replace") {
         nextPos = new vscode.Position(cursorPos.line - 1, cursorPos.character);
     }
 
-    setSecondaryCursor(new TempCursor(nextPos,editor),shift);
+    setSecondaryCursor(new TempCursor(nextPos,editor),shift,false);
 }

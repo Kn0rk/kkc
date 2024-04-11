@@ -34,8 +34,9 @@ setInterval(() => {
 export let secondaryCursor: SecondaryCursor | null = null;
 export let secondarySelection: vscode.Selection | null = null;
 
-export function setSecondaryCursor(cursor: SecondaryCursor,mode: "shift" | "replace" = "replace" ) {
-    let sCur = getSecondaryCursor();
+export function setSecondaryCursor(cursor: SecondaryCursor,mode: "shift" | "replace" = "replace", create_cursor:boolean=true ) {
+    
+    let sCur = getSecondaryCursor(true);
     if (mode === "shift" && secondarySelection) {
         secondarySelection = extendRangeByCursor(cursor,secondarySelection);
     }else if(mode === "shift" && sCur){
@@ -49,7 +50,13 @@ export function setSecondaryCursor(cursor: SecondaryCursor,mode: "shift" | "repl
     else{
         secondarySelection = null;
     }
-    secondaryCursor = cursor;
+
+    if(!create_cursor && !getSecondaryCursor(false)){
+        setPrimaryCursor(cursor.pos);
+    }else{
+        secondaryCursor = cursor;
+    }
+
     
     
     highlightCursor(cursor.pos, cursor.editor, true);
@@ -58,6 +65,7 @@ export function setSecondaryCursor(cursor: SecondaryCursor,mode: "shift" | "repl
 }
 
 export function setSecondarySelection(sel: vscode.Selection, editor: vscode.TextEditor) {
+    
     secondarySelection = sel;
     secondaryCursor = new SecondaryCursor(secondarySelection.active, editor);
     highlightCursor(secondaryCursor.pos, secondaryCursor.editor, true);
@@ -129,7 +137,7 @@ export function getSecondarySelection(fallback:boolean=true): vscode.Selection |
     }
 
     const secCur = getSecondaryCursor(false);
-    if (secCur){
+    if (secCur && fallback){
         const lineText = secCur.editor.document.lineAt(secCur.pos.line).text;
         let i = secCur.pos.character;
         const alphaNum = /^[a-zA-Z0-9]$/;

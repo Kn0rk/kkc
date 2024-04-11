@@ -21,7 +21,7 @@ export function byChar(dir: "next" | "prev", shift: "shift" | "replace" ="replac
         nextPos = getPreviousChar(editor.document, cursorPos);
     }
     if (nextPos) {
-        setSecondaryCursor(new TempCursor(nextPos, editor), shift);
+        setSecondaryCursor(new TempCursor(nextPos, editor), shift,false);
     }
 }
 
