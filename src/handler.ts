@@ -1,7 +1,7 @@
 import { Decoration, Hat } from "./hats/createDecorations";
 import * as vscode from 'vscode';
 import { clearHighlights, highlightCursor, highlightSelection } from "./utils/highlightSelection";
-import { TempCursor as SecondaryCursor } from "./utils/structs";
+import { TempCursor as SecondaryCursor, TempCursor } from "./utils/structs";
 import { PositionMath } from "./utils/ExtendedPos";
 
 
@@ -88,6 +88,28 @@ export function makeSecondarySelectionActive() {
     secondarySelection=null;
 }
 
+export function getPrimaryCursor(): SecondaryCursor|null{
+    let editor = vscode.window.activeTextEditor;
+        if (editor) {
+            return new SecondaryCursor(editor.selection.active, editor);
+        }
+    return null;
+}
+
+export function setPrimaryCursor(cursor:vscode.Position) { 
+    let editor = vscode.window.activeTextEditor;
+    if (editor) {
+        editor.selections = [
+            new vscode.Selection(
+                cursor,
+                cursor
+            )
+        ];
+    }
+}
+
+
+      
 export function getSecondaryCursor(fallback:boolean=false): SecondaryCursor | null {
     if (secondaryCursor) {
         return secondaryCursor;
@@ -101,7 +123,7 @@ export function getSecondaryCursor(fallback:boolean=false): SecondaryCursor | nu
     return null;
 }
 
-export function getSelection(): vscode.Selection |null{
+export function getSecondarySelection(fallback:boolean=true): vscode.Selection |null{
     if( secondarySelection){
         return secondarySelection;
     }

@@ -26,3 +26,30 @@ export class PositionMath{
     }
 
 }
+
+export function vposGreaterThan(
+    first: vscode.Position,
+    sec: vscode.Position,
+):boolean{
+
+    if (first.line > sec.line){
+        return true;
+    }
+    if (first.line < sec.line){
+        return false;
+    }
+    return first.character > sec.character;
+}
+
+export function vposLessThan(
+    first: vscode.Position,
+    sec: vscode.Position,
+):boolean{
+    if (first.line < sec.line){
+        return true;
+    }
+    if (first.line > sec.line){
+        return false;
+    }
+    return first.character < sec.character;
+}

@@ -1,5 +1,5 @@
-import { getSecondaryCursor, getSelection } from "./handler";
-
+import { getSecondaryCursor, getSecondarySelection } from "./handler";
+import * as vscode from 'vscode';
 
 class TmpSelectionContext {
 
@@ -11,13 +11,23 @@ class TmpSelectionContext {
         
 
         const tempCursor = getSecondaryCursor(true);
-        const tempSelection = getSelection();
-        if (tempCursor === null || tempSelection === null) {
+        const tempSelection = getSecondarySelection(true);
+        let sel=null;
+        if(tempSelection === null && tempCursor){
+            sel=new vscode.Selection(
+                tempCursor.pos,
+                tempCursor.pos
+            );
+        }else{
+            sel=tempSelection;
+        }
+
+        if (tempCursor === null || sel === null) {
             this.isSet = false;
             this.old_selection = undefined;
         } else {
             this.old_selection = tempCursor.editor.selection;
-            tempCursor.editor.selection = tempSelection;
+            tempCursor.editor.selection = sel;
         }
 
     }
