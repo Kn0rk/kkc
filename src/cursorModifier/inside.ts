@@ -42,6 +42,7 @@ export function insideAny(cursor: vscode.Position, document: vscode.TextDocument
 
     let openingPos = null;
     let closingCharacter = null;
+    let openingCharacter = null;
     while (lookBackPos) {
         let currentChar = charAt(lookBackPos, document);
         let closing = closingCharacters.indexOf(currentChar);
@@ -54,6 +55,7 @@ export function insideAny(cursor: vscode.Position, document: vscode.TextDocument
             if (counters[open] === 0) {
                 openingPos = lookBackPos;
                 closingCharacter = closingCharacters[open];
+                openingCharacter = openingCharacters[open];
                 break;
             } else {
                 counters[open]--;
@@ -70,18 +72,30 @@ export function insideAny(cursor: vscode.Position, document: vscode.TextDocument
     if (ambigousCounter[0] % 2 === 1) {
         openingPos = firstAmbPos[0];
         closingCharacter = ambigousCharacters[0];
+        openingCharacter = ambigousCharacters[0];
     } else if (ambigousCounter[1] % 2 === 1) {
         openingPos = firstAmbPos[1];
         closingCharacter = ambigousCharacters[1];
+        openingCharacter = ambigousCharacters[1];
     }
 
+    
     let lookForwardPos: vscode.Position|null = cursor;
     let closingPos = null;
+    let counter = 0;
     while( lookForwardPos){
         let currentChar = charAt(lookForwardPos,document);
-        if( currentChar === closingCharacter){
+        
+        if( currentChar === openingCharacter){        
+            counter += 1;
+        }
+
+        
+        if(counter === 0 && currentChar === closingCharacter){
             closingPos=lookForwardPos;
             break;
+        }else if (currentChar === closingCharacter){
+            counter -=1;
         }
         lookForwardPos = getNextChar(document,lookForwardPos);
     }
