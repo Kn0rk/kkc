@@ -53,3 +53,11 @@ export function vposLessThan(
     }
     return first.character < sec.character;
 }
+
+export function selectionEquals(
+    first:vscode.Selection,
+    second:vscode.Selection,
+){
+    return first.start.line === second.start.line && first.start.character === second.start.character 
+        && first.end.line === second.end.line && first.end.character === second.end.character;
+}

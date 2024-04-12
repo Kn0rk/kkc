@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 import { clearHighlights, highlightCursor, highlightSelection } from "./utils/highlightSelection";
 import { TempCursor as SecondaryCursor, TempCursor } from "./utils/structs";
 import { PositionMath } from "./utils/ExtendedPos";
+import { resetUserModes } from "./commands/userWhenClause";
 
 
 let deco_map: { [key: string]: any } = new Map();
@@ -177,5 +178,6 @@ export function clearSelection(keepSelection:boolean=false) {
     secondarySelection = null;
     clearHighlights();
     setCursorBlink();
+    resetUserModes();
 }
 

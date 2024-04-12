@@ -17,3 +17,11 @@ export function setUserMode(namedArgs: any ) {
 
 }
 
+export function resetUserModes(){
+    const modeNames = userModes.keys();
+    for (let k of modeNames){
+        userModes.set(k,false);
+        vscode.commands.executeCommand("setContext",k , false);
+    }
+}
+
