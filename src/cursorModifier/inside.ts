@@ -86,9 +86,7 @@ export function insideAny(cursor: vscode.Position, document: vscode.TextDocument
     while( lookForwardPos){
         let currentChar = charAt(lookForwardPos,document);
         
-        if( currentChar === openingCharacter){        
-            counter += 1;
-        }
+        
 
         
         if(counter === 0 && currentChar === closingCharacter){
@@ -97,7 +95,11 @@ export function insideAny(cursor: vscode.Position, document: vscode.TextDocument
         }else if (currentChar === closingCharacter){
             counter -=1;
         }
+        if( currentChar === openingCharacter){        
+            counter += 1;
+        }
         lookForwardPos = getNextChar(document,lookForwardPos);
+
     }
 
 

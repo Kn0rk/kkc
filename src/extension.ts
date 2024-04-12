@@ -97,21 +97,21 @@ export function activate(context: vscode.ExtensionContext) {
 
 	
 	// when cursor moves, clear the targets
-	decoration(context);
+	decoration();
 	vscode.window.onDidChangeTextEditorSelection(() => {
-		decoration(context);
+		decoration();
 	});
 	let activeEditor = vscode.window.activeTextEditor;
 	vscode.window.onDidChangeActiveTextEditor(editor => {
 		activeEditor = editor;
 		if (editor) {
-			decoration(context);
+			decoration();
 		}
 	}, null, context.subscriptions);
 
 	vscode.workspace.onDidChangeTextDocument(event => {
 		if (activeEditor && event.document === activeEditor.document) {
-			decoration(context);
+			decoration();
 		}
 	}, null, context.subscriptions);
 	

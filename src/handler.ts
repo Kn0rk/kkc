@@ -4,6 +4,7 @@ import { clearHighlights, highlightCursor, highlightSelection } from "./utils/hi
 import { TempCursor as SecondaryCursor, TempCursor } from "./utils/structs";
 import { PositionMath } from "./utils/ExtendedPos";
 import { resetUserModes } from "./commands/userWhenClause";
+import { decoration } from "./hats/textHatDecoration";
 
 
 let deco_map: { [key: string]: any } = new Map();
@@ -63,6 +64,7 @@ export function setSecondaryCursor(cursor: SecondaryCursor,mode: "shift" | "repl
     highlightCursor(cursor.pos, cursor.editor, true);
     highlightSelection(secondarySelection, cursor.editor);
     setCursorBlink();
+    decoration();
 }
 
 export function setSecondarySelection(sel: vscode.Selection, editor: vscode.TextEditor) {
