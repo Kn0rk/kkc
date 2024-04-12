@@ -25,7 +25,7 @@ test('inside quote', () => {
     let target = "next";
     let off=text.indexOf(target);
     let cursor = new vscode.Position(0,off);
-    const sel = insideAny(cursor,doc);
+    const sel = insideAny(cursor,cursor,doc);
     assert.ok(sel);
     assert.equal(sel.start.line,0);
     assert.equal(sel.start.character,off);
@@ -45,7 +45,7 @@ test('surrounded by quotes', async () =>  {
     let target = "bla";
     let off=text.indexOf(target);
     let cursor = new vscode.Position(1,off);
-    const sel = insideAny(cursor,doc);
+    const sel = insideAny(cursor,cursor,doc);
     assert.ok(sel);
     assert.equal(sel.start.line,0);
     assert.equal(sel.start.character,1);
@@ -61,7 +61,7 @@ test('end of range', async () =>  {
 "test{}", bla , "tester")`;
     let doc = new FakeDocument(text);
     let cursor = new vscode.Position(1,24);
-    const sel = insideAny(cursor,doc);
+    const sel = insideAny(cursor,cursor,doc);
     assert.ok(sel);
     assert.equal(sel.start.line,0);
     assert.equal(sel.start.character,1);

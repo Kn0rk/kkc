@@ -28,8 +28,9 @@ export function byChar(dir: "next" | "prev", shift: "shift" | "replace" ="replac
 }
 
 
-export function insideAny(cursor: vscode.Position, document: vscode.TextDocument): vscode.Selection | null {
+export function insideAny(start: vscode.Position,end: vscode.Position, document: vscode.TextDocument): vscode.Selection | null {
 
+    const escape = ["\\"];
     const openingCharacters = ["{", "[", "(", '<'];
     const closingCharacters = ["}", "]", ")", '>'];
     let counters = [0, 0, 0, 0];
@@ -38,12 +39,18 @@ export function insideAny(cursor: vscode.Position, document: vscode.TextDocument
     let ambigousCounter = [0, 0];
     let firstAmbPos: (vscode.Position | null)[] = [null, null];
 
-    let lookBackPos = getPreviousChar(document, cursor);
+    let lookBackPos = getPreviousChar(document, start);
 
     let openingPos = null;
     let closingCharacter = null;
     let openingCharacter = null;
     while (lookBackPos) {
+        let prevPos = getPreviousChar(document, lookBackPos); 
+        if( prevPos && escape.indexOf(charAt(prevPos,document))!== -1){
+            lookBackPos = prevPos;
+            continue;
+        }
+
         let currentChar = charAt(lookBackPos, document);
         let closing = closingCharacters.indexOf(currentChar);
         let open = openingCharacters.indexOf(currentChar);
@@ -66,7 +73,8 @@ export function insideAny(cursor: vscode.Position, document: vscode.TextDocument
                 firstAmbPos[amb] = lookBackPos;
             }
         }
-        lookBackPos = getPreviousChar(document, lookBackPos);  
+         
+        lookBackPos = prevPos;
     }
 
     if (ambigousCounter[0] % 2 === 1) {
@@ -80,7 +88,7 @@ export function insideAny(cursor: vscode.Position, document: vscode.TextDocument
     }
 
     
-    let lookForwardPos: vscode.Position|null = cursor;
+    let lookForwardPos: vscode.Position|null = end;
     let closingPos = null;
     let counter = 0;
     while( lookForwardPos){
@@ -114,9 +122,16 @@ export function insideAnyWrap() {
     if (cursor === null) {
         return;
     }
-    let cursorPos = cursor.pos;
+    let sel = getSecondarySelection(true);
+    if(!sel){
+        sel = new vscode.Selection(
+            cursor.pos,
+            cursor.pos
+        );
+    }
+    // let cursorPos = cursor.pos;
     let editor = cursor.editor;
-    let selection = insideAny(cursorPos, editor.document);
+    let selection = insideAny(sel.start,sel.end, editor.document);
 
     let prevSel = getSecondarySelection(false);
 

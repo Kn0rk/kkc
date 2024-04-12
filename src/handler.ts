@@ -69,10 +69,11 @@ export function setSecondaryCursor(cursor: SecondaryCursor,mode: "shift" | "repl
 
 export function setSecondarySelection(sel: vscode.Selection, editor: vscode.TextEditor) {
     
+    let cur = new SecondaryCursor(sel.active, editor);
+    setSecondaryCursor(cur,"replace",false);
     secondarySelection = sel;
-    secondaryCursor = new SecondaryCursor(secondarySelection.active, editor);
-    highlightCursor(secondaryCursor.pos, secondaryCursor.editor, true);
-    highlightSelection(secondarySelection, secondaryCursor.editor);
+    highlightCursor(cur.pos, cur.editor, true);
+    highlightSelection(secondarySelection, cur.editor);
     setCursorBlink();
 }
 
