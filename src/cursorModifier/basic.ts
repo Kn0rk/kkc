@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { getSecondaryCursor, setSecondaryCursor } from '../handler';
 import { TempCursor } from '../utils/structs';
 import { byChar, insideAny, insideAnyWrap } from './inside';
+import { selectWordWrap } from './word';
 
 
 
@@ -62,6 +63,9 @@ export function modAll(modifier: string) {
 
         case "insideAny":
             insideAnyWrap();
+            break;
+        case "selectWord":
+            selectWordWrap();
             break;
 
         default:

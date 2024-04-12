@@ -5,6 +5,7 @@ import { TempCursor } from '../utils/structs';
 import { getNextChar } from '../utils/iterateDocument';
 import { getPreviousChar } from '../utils/iterateDocument';
 import { selectionEquals } from '../utils/ExtendedPos';
+import { charAt } from '../utils/iterateDocument';
 
 
 export function byChar(dir: "next" | "prev", shift: "shift" | "replace" ="replace") {
@@ -26,10 +27,6 @@ export function byChar(dir: "next" | "prev", shift: "shift" | "replace" ="replac
     }
 }
 
-
-function charAt(pos: vscode.Position, doc: vscode.TextDocument): string {
-    return doc.lineAt(pos.line).text.at(pos.character) ?? "";
-}
 
 export function insideAny(cursor: vscode.Position, document: vscode.TextDocument): vscode.Selection | null {
 

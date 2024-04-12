@@ -30,4 +30,7 @@ export function getPreviousChar(doc: vscode.TextDocument, cursor: vscode.Positio
     }
     return cursor;
 }
+export function charAt(pos: vscode.Position, doc: vscode.TextDocument): string {
+    return doc.lineAt(pos.line).text.at(pos.character) ?? "";
+}
 
