@@ -1,12 +1,12 @@
 
 import * as vscode from 'vscode';
 import { getPreviousChar, getNextChar, charAt } from '../utils/iterateDocument';
-import { getSecondaryCursor, setSecondarySelection } from '../handler';
+import { getPrimaryCursor, getSecondaryCursor, setPrimaryCursor, setPrimarySelection, setSecondarySelection } from '../handler';
 import { insideAny } from './inside';
 
 
 export function selectWordWrap() {
-    let cursor = getSecondaryCursor(true);
+    let cursor = getPrimaryCursor();
     if (cursor === null) {
         return;
     }
@@ -17,10 +17,9 @@ export function selectWordWrap() {
 
 
     if (selection) {
-        setSecondarySelection(selection, editor);
+        setPrimarySelection(selection, editor);
     }
 }
-
 
 
 export function selectWord(cursor: vscode.Position, document: vscode.TextDocument): vscode.Selection | null {

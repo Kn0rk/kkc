@@ -1,11 +1,12 @@
 import * as vscode from 'vscode';
 
-import { getSecondaryCursor, getSecondarySelection, setSecondaryCursor, setSecondarySelection } from '../handler';
+import { getPrimaryCursor, getSecondaryCursor, getSecondarySelection, setPrimaryCursor, setSecondaryCursor, setSecondarySelection } from '../handler';
 import { TempCursor } from '../utils/structs';
 import { getNextChar } from '../utils/iterateDocument';
 import { getPreviousChar } from '../utils/iterateDocument';
 import { selectionEquals } from '../utils/ExtendedPos';
 import { charAt } from '../utils/iterateDocument';
+import { setPrimarySelection } from '../handler';
 
 
 export function byChar(dir: "next" | "prev", shift: "shift" | "replace" ="replace") {
@@ -23,7 +24,7 @@ export function byChar(dir: "next" | "prev", shift: "shift" | "replace" ="replac
         nextPos = getPreviousChar(editor.document, cursorPos);
     }
     if (nextPos) {
-        setSecondaryCursor(new TempCursor(nextPos, editor), shift,false);
+        setPrimaryCursor(nextPos, shift);
     }
 }
 
@@ -118,24 +119,23 @@ export function insideAny(start: vscode.Position,end: vscode.Position, document:
 }
 
 export function insideAnyWrap() {
-    let cursor = getSecondaryCursor(true);
+    let cursor = getPrimaryCursor();
     if (cursor === null) {
         return;
     }
-    let sel = getSecondarySelection(true);
-    if(!sel){
-        sel = new vscode.Selection(
-            cursor.pos,
-            cursor.pos
-        );
-    }
+    let previousSelection = cursor.editor.selection;
+    // if(!sel){
+    //     sel = new vscode.Selection(
+    //         cursor.pos,
+    //         cursor.pos
+    //     );
+    // }
     // let cursorPos = cursor.pos;
     let editor = cursor.editor;
-    let selection = insideAny(sel.start,sel.end, editor.document);
+    let selection = insideAny(previousSelection.start,previousSelection.end, editor.document);
 
-    let prevSel = getSecondarySelection(false);
 
-    if(selection && prevSel && selectionEquals(selection,prevSel)){
+    if(selection && previousSelection && selectionEquals(selection,previousSelection)){
         const prevPos = getPreviousChar(editor.document,selection.start);
         const nextPos = getNextChar(editor.document,selection.end);
         if(prevPos && nextPos){
@@ -148,7 +148,9 @@ export function insideAnyWrap() {
 
     
     if (selection) {
-        setSecondarySelection(selection, editor);
+        setPrimarySelection(selection, editor);
     }
 
 }
+
+

@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { getSecondaryCursor, setSecondaryCursor } from '../handler';
+import { getPrimaryCursor, setPrimaryCursor, } from '../handler';
 import { TempCursor } from '../utils/structs';
 import { byChar, insideAny, insideAnyWrap } from './inside';
 import { selectWordWrap } from './word';
@@ -80,7 +80,7 @@ function byToken(
 ) {
 
 
-    let cursor = getSecondaryCursor(true);
+    let cursor = getPrimaryCursor();
     if(cursor === null){
         return;
     }
@@ -126,12 +126,12 @@ function byToken(
     }
 
     
-    setSecondaryCursor(new TempCursor(newRange.start,editor),shift,false);
+    setPrimaryCursor(newRange.start,shift);
     
 }
 
 function home(shift:"shift" | "replace"="replace") {
-    let cursor = getSecondaryCursor(true);
+    let cursor = getPrimaryCursor();
     if(cursor === null){
         return;
     }
@@ -146,11 +146,11 @@ function home(shift:"shift" | "replace"="replace") {
     if (match && match.index && match.index !== cursorPos.character) {
         startOfLine = new vscode.Position(startOfLine.line, match.index);
     }
-    setSecondaryCursor(new TempCursor(startOfLine,editor),shift); 
+    setPrimaryCursor(startOfLine,shift); 
 }
 
 function end(shift:"shift" | "replace"="replace") {
-    let cursor = getSecondaryCursor(true);
+    let cursor = getPrimaryCursor();
     if(cursor === null){
         return;
     }
@@ -159,13 +159,13 @@ function end(shift:"shift" | "replace"="replace") {
     
     let line = cursorPos.line;
     let end = editor.document.lineAt(line).range.end;
-    setSecondaryCursor(new TempCursor(end,editor),shift,false);
+    setPrimaryCursor(end,shift);
 
 
 }
 
 function verticalMove(dir: "up" | "down",shift:"shift" | "replace"="replace") {
-    let cursor = getSecondaryCursor(true);
+    let cursor = getPrimaryCursor();
     if(cursor === null){
         return;
     }
@@ -177,5 +177,5 @@ function verticalMove(dir: "up" | "down",shift:"shift" | "replace"="replace") {
         nextPos = new vscode.Position(cursorPos.line - 1, cursorPos.character);
     }
 
-    setSecondaryCursor(new TempCursor(nextPos,editor),shift,false);
+    setPrimaryCursor(nextPos,shift);
 }

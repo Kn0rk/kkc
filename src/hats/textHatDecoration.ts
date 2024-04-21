@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { DecoProto, createDecoration } from './createDecorations';
-import { getSecondaryCursor, setHat } from '../handler';
+import { getPrimaryCursor, getSecondaryCursor, setHat } from '../handler';
 
 
 let solid: vscode.TextEditorDecorationType|null = null;
@@ -13,7 +13,7 @@ export function decoration():void{
 	if (!activeEditor) {
 		return;
 	}
-	const cur = getSecondaryCursor(true);
+	const cur = getPrimaryCursor();
 	if(!cur){
 		return;
 	}

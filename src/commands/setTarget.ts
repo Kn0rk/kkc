@@ -1,7 +1,7 @@
 import KeyboardHandler, { DisplayOptions } from "../utils/KeyboardHandler";
 
 import * as vscode from 'vscode';
-import { getHat, setSecondaryCursor } from "../handler";
+import { getHat, getSecondaryCursor, setPrimaryCursor, setSecondaryCursor } from "../handler";
 import { Mode, Style, hatToEditor, hatToPos } from "../hats/createDecorations";
 import { TempCursor } from "../utils/structs";
 import { setCursorStyle } from "../utils/highlightSelection";
@@ -29,7 +29,12 @@ export class TargetMark {
             let hat = getHat({style:shape,character:text});
             let editor = hatToEditor(hat);
             const [start,end] = hatToPos(hat);
-            setSecondaryCursor(new TempCursor(start,editor),mode);
+
+            const curCur = getSecondaryCursor(true);
+            setPrimaryCursor(start);
+            if (curCur){
+                setSecondaryCursor(curCur);
+            }
             vscode.commands.executeCommand("setContext", "kkc.mode", true);
             setCursorStyle(vscode.TextEditorCursorStyle.BlockOutline);
         });

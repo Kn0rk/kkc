@@ -1,10 +1,10 @@
 import { Decoration, Hat } from "./hats/createDecorations";
-import * as vscode from 'vscode';
 import { clearHighlights, highlightCursor, highlightSelection } from "./utils/highlightSelection";
 import { TempCursor as SecondaryCursor, TempCursor } from "./utils/structs";
 import { PositionMath } from "./utils/ExtendedPos";
 import { resetUserModes } from "./commands/userWhenClause";
 import { decoration } from "./hats/textHatDecoration";
+import * as vscode from "vscode";
 
 
 let deco_map: { [key: string]: any } = new Map();
@@ -63,7 +63,7 @@ export function setSecondaryCursor(cursor: SecondaryCursor,mode: "shift" | "repl
     
     highlightCursor(cursor.pos, cursor.editor, true);
     highlightSelection(secondarySelection, cursor.editor);
-    setCursorBlink();
+    // setCursorBlink();
     decoration();
 }
 
@@ -74,7 +74,7 @@ export function setSecondarySelection(sel: vscode.Selection, editor: vscode.Text
     secondarySelection = sel;
     highlightCursor(cur.pos, cur.editor, true);
     highlightSelection(secondarySelection, cur.editor);
-    setCursorBlink();
+    // setCursorBlink();
 }
 
 function extendRangeByCursor(
@@ -108,15 +108,20 @@ export function getPrimaryCursor(): SecondaryCursor|null{
     return null;
 }
 
-export function setPrimaryCursor(cursor:vscode.Position) { 
+export function setPrimaryCursor(cursor:vscode.Position,mode: "shift" | "replace" = "replace") { 
     let editor = vscode.window.activeTextEditor;
     if (editor) {
-        editor.selections = [
-            new vscode.Selection(
+        var sel = editor.selection;
+        if(mode === "shift"){
+            sel = extendRangeByCursor(new SecondaryCursor(cursor,editor),sel);
+        }else{
+            sel = new vscode.Selection(
                 cursor,
                 cursor
-            )
-        ];
+            );
+            
+        }
+        editor.selections = [sel];
     }
 }
 
@@ -158,29 +163,32 @@ export function getSecondarySelection(fallback:boolean=true): vscode.Selection |
     return null;
 }
 
-function setCursorBlink() {
-    const config = vscode.workspace.getConfiguration();
-    let cursorBlinking = "blink";
-    if (secondaryCursor) {
-        cursorBlinking = "solid";
-    }
-    config.update("editor.cursorBlinking", cursorBlinking, vscode.ConfigurationTarget.Workspace);
-}
+// function setCursorBlink() {
+//     const config = vscode.workspace.getConfiguration();
+//     let cursorBlinking = "blink";
+//     if (secondaryCursor) {
+//         cursorBlinking = "solid";
+//     }
+//     config.update("editor.cursorBlinking", cursorBlinking, vscode.ConfigurationTarget.Workspace);
+// }
 
 export function clearSelection(keepSelection:boolean=false) {
     let editor = vscode.window.activeTextEditor;
-    if (editor && !keepSelection) {
-        editor.selections = [
-            new vscode.Selection(
-                editor.selection.active,
-                editor.selection.active
-            )
-        ];
-    }
+    // if (editor && !keepSelection) {
+    //     editor.selections = [
+    //         new vscode.Selection(
+    //             editor.selection.active,
+    //             editor.selection.active
+    //         )
+    //     ];
+    // }
     secondaryCursor = null;
     secondarySelection = null;
     clearHighlights();
-    setCursorBlink();
+    // setCursorBlink();
     resetUserModes();
+}
+export function setPrimarySelection(selection: vscode.Selection, editor: vscode.TextEditor) {
+    editor.selections = [selection];
 }
 

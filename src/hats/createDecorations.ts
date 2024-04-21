@@ -46,7 +46,7 @@ function getAllDecos(): Decoration[] {
             const deco: Decoration = {
                 style: s,
                 character: char
-            }
+            };
             decos.push(deco);
         }
     }
