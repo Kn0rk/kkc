@@ -36,37 +36,8 @@ export function hatToPos(hat: Hat): [vscode.Position, vscode.Position] {
     return [start, end];
 }
 
-function getAllDecos(): Decoration[] {
-    const alphabet: string[] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-    const styles: ("solid" | "double")[] = ["solid", "double"];
 
-    const decos: Decoration[] = [];
-    for (let s of styles) {
-        for (let char of alphabet) {
-            const deco: Decoration = {
-                style: s,
-                character: char
-            };
-            decos.push(deco);
-        }
-    }
 
-    return decos;
-}
-
-function getMatchingDeco(char: string, decos: Decoration[]): number {
-    for (let i = 0; i < styles.length; i++) {
-        let idx = decos.findIndex(
-            deco => deco.character === char && deco.style === styles[i]
-        );
-        if (idx >= 0) {
-            return idx;
-        }
-
-    }
-    return -1;
-
-}
 
 export type DecoProto = {
     deco: Decoration,

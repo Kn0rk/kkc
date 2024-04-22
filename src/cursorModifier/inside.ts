@@ -1,7 +1,6 @@
 import * as vscode from 'vscode';
 
-import { getPrimaryCursor, getSecondaryCursor, getSecondarySelection, setPrimaryCursor, setSecondaryCursor, setSecondarySelection } from '../handler';
-import { TempCursor } from '../utils/structs';
+import { getPrimaryCursor, getSecondaryCursor,  setPrimaryCursor } from '../handler';
 import { getNextChar } from '../utils/iterateDocument';
 import { getPreviousChar } from '../utils/iterateDocument';
 import { selectionEquals } from '../utils/ExtendedPos';
@@ -10,7 +9,7 @@ import { setPrimarySelection } from '../handler';
 
 
 export function byChar(dir: "next" | "prev", shift: "shift" | "replace" ="replace") {
-    let cursor = getSecondaryCursor(true);
+    let cursor = getPrimaryCursor();
     if (cursor === null) {
         return;
     }
@@ -113,7 +112,7 @@ export function insideAny(start: vscode.Position,end: vscode.Position, document:
 
 
     if( openingPos && closingPos){
-        return new vscode.Selection(getNextChar(document,openingPos)!,closingPos);
+        return new vscode.Selection(closingPos,getNextChar(document,openingPos)!);
     }
     return null;
 }
@@ -140,8 +139,8 @@ export function insideAnyWrap() {
         const nextPos = getNextChar(editor.document,selection.end);
         if(prevPos && nextPos){
             selection = new vscode.Selection(
+                nextPos,
                 prevPos,
-                nextPos
             );
         }
     }

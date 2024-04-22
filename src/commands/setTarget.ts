@@ -3,8 +3,9 @@ import KeyboardHandler, { DisplayOptions } from "../utils/KeyboardHandler";
 import * as vscode from 'vscode';
 import { getHat, getSecondaryCursor, setPrimaryCursor, setSecondaryCursor } from "../handler";
 import { Mode, Style, hatToEditor, hatToPos } from "../hats/createDecorations";
-import { TempCursor } from "../utils/structs";
 import { setCursorStyle } from "../utils/highlightSelection";
+import { selectWord } from "../cursorModifier/word";
+import { lastOccurrence, nextOccurrence } from "../cursorModifier/nextOccurance";
 
 
 
@@ -26,10 +27,33 @@ export class TargetMark {
             if (text === undefined) {
                 return;
             }
+            let start = null;
+            let editor = vscode.window.activeTextEditor;
             let hat = getHat({style:shape,character:text});
-            let editor = hatToEditor(hat);
-            const [start,end] = hatToPos(hat);
+            if (hat){
+                editor = hatToEditor(hat);
+                var [s,e] = hatToPos(hat);
+                start=s;
+                const word = selectWord(start,editor.document);
+                if( word){
+                    start = word.start;
+                }
+    
+            }else if(editor){
+                
+                start = editor.selection.active;
+                if(shape === "solid"){
+                    start = lastOccurrence(start,editor.document,text);
+                }else if (shape === "double"){
+                    start = nextOccurrence(start,editor.document,text);
+                }
+            }
 
+            if(!editor || !start){
+                return;
+            }
+
+          
             const curCur = getSecondaryCursor(true);
             setPrimaryCursor(start);
             if (curCur){

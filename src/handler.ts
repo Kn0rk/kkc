@@ -16,10 +16,11 @@ export function clearAllHats() {
     deco_map = {};
 }
 
-export function getHat(deco: Decoration): Hat {
+export function getHat(deco: Decoration): Hat| null{
     let deco_string = decoToString(deco);
     if (!deco_map.has(deco_string)) {
         vscode.window.showInformationMessage(`${deco_string} not in map.`);
+        return null;
     }
     return deco_map.get(deco_string);
 }
@@ -40,7 +41,7 @@ export function setSecondaryCursor(cursor: SecondaryCursor,mode: "shift" | "repl
     
     let sCur = getSecondaryCursor(true);
     if (mode === "shift" && secondarySelection) {
-        secondarySelection = extendRangeByCursor(cursor,secondarySelection);
+        secondarySelection = new vscode.Selection(secondarySelection.anchor,cursor.pos);;
     }else if(mode === "shift" && sCur){
         secondarySelection = new vscode.Selection(cursor.pos,sCur.pos);
 
@@ -77,17 +78,6 @@ export function setSecondarySelection(sel: vscode.Selection, editor: vscode.Text
     // setCursorBlink();
 }
 
-function extendRangeByCursor(
-    cursor: SecondaryCursor,
-    range: vscode.Range
-) {
-    if (new PositionMath(cursor.pos).greaterThan(new PositionMath(range.start))) {
-        return new vscode.Selection(range.start, cursor.pos);
-    } else {
-        return new vscode.Selection(cursor.pos, range.end);
-    }
-}
-
 export function makeSecondarySelectionActive() {
 
     if (secondaryCursor && secondarySelection) {
@@ -113,7 +103,7 @@ export function setPrimaryCursor(cursor:vscode.Position,mode: "shift" | "replace
     if (editor) {
         var sel = editor.selection;
         if(mode === "shift"){
-            sel = extendRangeByCursor(new SecondaryCursor(cursor,editor),sel);
+            sel = new vscode.Selection(sel.anchor,cursor);
         }else{
             sel = new vscode.Selection(
                 cursor,
