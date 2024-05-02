@@ -123,13 +123,7 @@ export function insideAnyWrap() {
         return;
     }
     let previousSelection = cursor.editor.selection;
-    // if(!sel){
-    //     sel = new vscode.Selection(
-    //         cursor.pos,
-    //         cursor.pos
-    //     );
-    // }
-    // let cursorPos = cursor.pos;
+    
     let editor = cursor.editor;
     let selection = insideAny(previousSelection.start,previousSelection.end, editor.document);
 

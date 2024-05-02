@@ -6,7 +6,7 @@
   "description": "",
   "version": "0.0.20",
   "engines": {
-    "vscode": "^1.88.0"
+    "vscode": "^1.7.0"
   },
   "categories": [
     "Other"
@@ -62,7 +62,7 @@
     "@types/heap": "^0.2.34",
     "@types/mocha": "^10.0.6",
     "@types/node": "18.x",
-    "@types/vscode": "^1.88.0",
+    "@types/vscode": "^1.7.0",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
     "@vscode/test-cli": "^0.0.4",
