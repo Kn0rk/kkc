@@ -17,6 +17,7 @@ export class TargetMark {
         this.setHat = this.setHat.bind(this);
         this.setShiftHat = this.setShiftHat.bind(this);
         this.toOccurance = this.toOccurance.bind(this);
+        this.shiftToOccurance = this.shiftToOccurance.bind(this);
     }
 
     setHat(shape:Style, mode: Mode = "replace"){
@@ -71,7 +72,11 @@ export class TargetMark {
     
     }
 
-    toOccurance(dir:"next"|"last"){
+    shiftToOccurance(dir:"next"|"last"){
+        this.toOccurance(dir,"shift");
+    }
+
+    toOccurance(dir:"next"|"last",mode:Mode="replace"){
         vscode.commands.executeCommand("setContext", "kkc.mode", false);
         const options:DisplayOptions = {
             cursorStyle:vscode.TextEditorCursorStyle.Underline,
@@ -102,7 +107,7 @@ export class TargetMark {
                 return;
             }
             const curCur = getSecondaryCursor(true);
-            setPrimaryCursor(start);
+            setPrimaryCursor(start,mode);
             if (curCur){
                 setSecondaryCursor(curCur);
             }

@@ -62,6 +62,9 @@ export function activate(context: vscode.ExtensionContext) {
 	disposable = vscode.commands.registerCommand('kkc.toChar', targetMarkInstance.toOccurance);
 	context.subscriptions.push(disposable);
 
+	disposable = vscode.commands.registerCommand('kkc.shiftToChar', targetMarkInstance.shiftToOccurance);
+	context.subscriptions.push(disposable);
+
 	disposable = vscode.commands.registerCommand('kkc.setShiftHat', targetMarkInstance.setShiftHat);
 	context.subscriptions.push(disposable);
 
