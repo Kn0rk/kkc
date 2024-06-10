@@ -26,6 +26,7 @@ export function getHat(deco: Decoration): Hat| null{
 }
 
 function decoToString(deco: Decoration): string {
+
     return `${deco.style}:${deco.character}`;
 }
 setInterval(() => {
@@ -153,14 +154,6 @@ export function getSecondarySelection(fallback:boolean=true): vscode.Selection |
     return null;
 }
 
-// function setCursorBlink() {
-//     const config = vscode.workspace.getConfiguration();
-//     let cursorBlinking = "blink";
-//     if (secondaryCursor) {
-//         cursorBlinking = "solid";
-//     }
-//     config.update("editor.cursorBlinking", cursorBlinking, vscode.ConfigurationTarget.Workspace);
-// }
 
 export function clearSelection(keepSelection:boolean=false) {
     let editor = vscode.window.activeTextEditor;

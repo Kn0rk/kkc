@@ -16,6 +16,7 @@ export class TargetMark {
         this.keyboardHandler = keyboardHandler;   
         this.setHat = this.setHat.bind(this);
         this.setShiftHat = this.setShiftHat.bind(this);
+        this.toOccurance = this.toOccurance.bind(this);
     }
 
     setHat(shape:Style, mode: Mode = "replace"){
@@ -68,6 +69,46 @@ export class TargetMark {
     setShiftHat(shape:Style){
         this.setHat(shape,"shift");
     
+    }
+
+    toOccurance(dir:"next"|"last"){
+        vscode.commands.executeCommand("setContext", "kkc.mode", false);
+        const options:DisplayOptions = {
+            cursorStyle:vscode.TextEditorCursorStyle.Underline,
+            statusBarText:"Select hat"};
+        this.keyboardHandler.awaitSingleKeypress(options).then((text:string|undefined) => {
+            if (text === undefined) {
+                return;
+            }
+            
+            let editor = vscode.window.activeTextEditor;
+            if(!editor ){
+                return;
+            }
+
+            let start = undefined;
+            if(editor){
+                
+                start = editor.selection.active;
+                if (dir === "last"){
+                    start = lastOccurrence(start,editor.document,text,false);
+                }
+                else if (dir === "next"){
+                    start = nextOccurrence(start,editor.document,text,false);
+                }
+            }
+
+            if (!start){
+                return;
+            }
+            const curCur = getSecondaryCursor(true);
+            setPrimaryCursor(start);
+            if (curCur){
+                setSecondaryCursor(curCur);
+            }
+            vscode.commands.executeCommand("setContext", "kkc.mode", true);
+            setCursorStyle(vscode.TextEditorCursorStyle.BlockOutline);
+        });
     }
 
 }

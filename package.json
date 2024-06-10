@@ -37,11 +37,15 @@
         "title": "Hello World"
       },
       {
-        "command": "kckc.setShiftHat",
+        "command": "kkc.setShiftHat",
         "title": "..."
       },
       {
-        "command": "kckc.setHat",
+        "command": "kkc.setHat",
+        "title": "..."
+      },
+      {
+        "command": "kkc.toChar",
         "title": "..."
       },
       {

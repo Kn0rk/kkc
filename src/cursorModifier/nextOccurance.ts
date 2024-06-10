@@ -3,13 +3,13 @@ import { getPreviousChar, getNextChar, charAt } from '../utils/iterateDocument';
 
 
 
-export function nextOccurrence(cursor: vscode.Position, document: vscode.TextDocument,character:string): vscode.Position | null {
+export function nextOccurrence(cursor: vscode.Position, document: vscode.TextDocument,character:string,caseSensitive:boolean=false): vscode.Position | null {
 
     let lookForwardPos: vscode.Position | null = cursor;
     let found = false;
     while (lookForwardPos) {
         let currentChar = charAt(lookForwardPos, document);
-        if (character ===currentChar) {
+        if (character ===currentChar || (!caseSensitive && character.toLowerCase() === currentChar.toLowerCase())) {
             found=true;
             break;
         }
@@ -23,13 +23,13 @@ export function nextOccurrence(cursor: vscode.Position, document: vscode.TextDoc
 }
 
 
-export function lastOccurrence(cursor: vscode.Position, document: vscode.TextDocument,character:string): vscode.Position | null {
+export function lastOccurrence(cursor: vscode.Position, document: vscode.TextDocument,character:string,caseSensitive:boolean=false): vscode.Position | null {
 
     let lookBackwardPos: vscode.Position | null = cursor;
     let found = false;
     while (lookBackwardPos) {
         let currentChar = charAt(lookBackwardPos, document);
-        if (character ===currentChar) {
+        if (character ===currentChar || (!caseSensitive && character.toLowerCase() === currentChar.toLowerCase())) {
             found=true;
             break;
         }
